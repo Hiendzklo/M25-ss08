@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import React, { Suspense } from 'react';
 
 const Posts: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState<string>('');
@@ -39,4 +40,10 @@ const Posts: React.FC = () => {
     );
 };
 
-export default Posts;
+export default function WrappedPosts() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <Posts />
+        </Suspense>
+    );
+}
